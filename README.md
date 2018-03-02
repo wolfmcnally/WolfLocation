@@ -1,6 +1,6 @@
 # WolfLocation
 
-[![CI Status](http://img.shields.io/travis/ironwolf/WolfLocation.svg?style=flat)](https://travis-ci.org/ironwolf/WolfLocation)
+[![CI Status](http://img.shields.io/travis/wolfmcnally/WolfLocation.svg?style=flat)](https://travis-ci.org/wolfmcnally/WolfLocation)
 [![Version](https://img.shields.io/cocoapods/v/WolfLocation.svg?style=flat)](http://cocoapods.org/pods/WolfLocation)
 [![License](https://img.shields.io/cocoapods/l/WolfLocation.svg?style=flat)](http://cocoapods.org/pods/WolfLocation)
 [![Platform](https://img.shields.io/cocoapods/p/WolfLocation.svg?style=flat)](http://cocoapods.org/pods/WolfLocation)
@@ -22,7 +22,7 @@ pod 'WolfLocation'
 
 ## Author
 
-ironwolf, wolf@wolfmcnally.com
+wolfmcnally, wolf@wolfmcnally.com
 
 ## License
 

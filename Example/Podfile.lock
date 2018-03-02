@@ -1,0 +1,26 @@
+PODS:
+  - CommonCryptoModule (1.0.2)
+  - SwiftLint (0.25.0)
+  - WolfCore (2.1.8):
+    - CommonCryptoModule
+    - SwiftLint
+  - WolfLocation (0.1.0):
+    - SwiftLint
+    - WolfCore (~> 2.1)
+
+DEPENDENCIES:
+  - WolfLocation (from `../`)
+
+EXTERNAL SOURCES:
+  WolfLocation:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CommonCryptoModule: 63a68b57abed79655b3a01011419bf037a05b0a0
+  SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
+  WolfCore: 2b9e1a721b9fdca869ad405cedfd38ce6306c9cc
+  WolfLocation: 7a22de4131e7e0aafa52eff89c4019f7de18f687
+
+PODFILE CHECKSUM: ecb0989736ff245a56f89d04c48949aa31f68f6e
+
+COCOAPODS: 1.4.0
