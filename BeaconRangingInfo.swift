@@ -1,0 +1,101 @@
+//
+//  BeaconRangingInfo.swift
+//  WolfLocation
+//
+//  Created by Wolf McNally on 3/1/18.
+//
+
+import CoreLocation
+import WolfCore
+
+class BeaconRangingInfo {
+    private typealias `Self` = BeaconRangingInfo
+
+    let region: BeaconRegion
+
+    var state: CLRegionState = .unknown {
+        didSet { didChange.notify(self) }
+    }
+
+    private var enteredRegionsDidChangeObserver: Event<(BeaconRegion, CLRegionState)>.Observer!
+    private var didRangeBeaconObserver: Event<(Beacon, BeaconRegion)>.Observer!
+    private var lastRangingInfoDate: Date?
+    private var staleTimerCanceler: Cancelable!
+
+    init(region: BeaconRegion) {
+        //    init(region: BeaconRegion, state: CLRegionState) {
+        self.region = region
+        //        self.state = state
+        enteredRegionsDidChangeObserver = beaconDetector.enteredRegionsDidChange.add { [unowned self] (region, state) in
+            self.enteredRegionsDidChange(region, state: state)
+        }
+        didRangeBeaconObserver = beaconDetector.didRangeBeacon.add { [unowned self] (info, region) in
+            self.didRangeBeacon(info, in: region)
+            self.lastRangingInfoDate = Date()
+        }
+        staleTimerCanceler = dispatchRepeatedOnMain(atInterval: 5.0) { [unowned self] _ in
+            guard let lastRangingInfoDate = self.lastRangingInfoDate else { return }
+            if (lastRangingInfoDate.timeIntervalSinceReferenceDate - Date.timeIntervalSinceReferenceDate) > 2.5 {
+                self.didRangeBeacon(nil, in: self.region)
+            }
+        }
+    }
+
+    deinit {
+        enteredRegionsDidChangeObserver.invalidate()
+        didRangeBeaconObserver.invalidate()
+        staleTimerCanceler.cancel()
+    }
+
+    static let maxInfosCount = 60
+
+    let didChange = Event<BeaconRangingInfo>()
+    private(set) var infos = [Beacon?]()
+
+    private func enteredRegionsDidChange(_ region: BeaconRegion, state: CLRegionState) {
+        guard self.region == region else { return }
+        self.state = state
+    }
+
+    private func didRangeBeacon(_ info: Beacon?, in region: BeaconRegion) {
+        guard self.region == region else { return }
+        defer { didChange.notify(self) }
+
+        if let info = info {
+            if info.accuracy < 0 {
+                infos.append(nil)
+            } else {
+                infos.append(info)
+            }
+        } else {
+            infos.append(nil)
+        }
+
+        let dropCount = max(infos.count - Self.maxInfosCount, 0)
+        guard dropCount > 0 else { return }
+        infos = Array(infos.dropFirst(dropCount))
+    }
+
+    var lastInfo: Beacon? {
+        guard let lastInfo = infos.last else {
+            return nil
+        }
+        return lastInfo
+    }
+
+    var lastInfoSortWeight: SortWeight {
+        guard let lastInfo = lastInfo else {
+            return .list([CLProximity.unknown.sortWeight, .double(veryFarAway)])
+        }
+
+        guard lastInfo.proximity != .unknown else {
+            return .list([CLProximity.unknown.sortWeight, .double(veryFarAway)])
+        }
+
+        return lastInfo.sortWeight
+    }
+
+    var sortWeight: SortWeight {
+        return .list([lastInfoSortWeight, state.sortWeight])
+    }
+}
