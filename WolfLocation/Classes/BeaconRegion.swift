@@ -85,7 +85,7 @@ extension BeaconRegion {
 }
 
 extension Set where Element == BeaconRegion {
-    func subtractingSame(_ b: Set<BeaconRegion>) -> Set<BeaconRegion> {
+    public func subtractingSame(_ b: Set<BeaconRegion>) -> Set<BeaconRegion> {
         return filter { aRegion in
             for bRegion in b {
                 if BeaconRegion.isSame(aRegion, bRegion) {
@@ -98,7 +98,7 @@ extension Set where Element == BeaconRegion {
 }
 
 extension Sequence where Element == BeaconRegion {
-    func containsSame(_ e: Element) -> Bool {
+    public func containsSame(_ e: Element) -> Bool {
         for aElement in self {
             if BeaconRegion.isSame(aElement, e) {
                 return true
@@ -109,7 +109,7 @@ extension Sequence where Element == BeaconRegion {
 }
 
 extension Collection where Element == BeaconRegion {
-    func indexOfSame(_ e: Element) -> Index? {
+    public func indexOfSame(_ e: Element) -> Index? {
         return index { BeaconRegion.isSame($0, e) }
     }
 }

@@ -9,21 +9,21 @@ import CoreBluetooth
 import CoreLocation
 import WolfCore
 
-let beaconDetector = BeaconDetector()
+public let beaconDetector = BeaconDetector()
 
 extension UserDefaultsKey {
     static let trackedBeaconRegions = UserDefaultsKey("trackedBeaconRegions")
 }
 
-class BeaconDetector: NSObject {
+public class BeaconDetector: NSObject {
     private typealias `Self` = BeaconDetector
 
     private let clLocationManager = CLLocationManager()
-    let enteredRegionsDidChange = Event<(BeaconRegion, CLRegionState)>()
-    let didRangeBeacon = Event<(Beacon, BeaconRegion)>()
+    public let enteredRegionsDidChange = Event<(BeaconRegion, CLRegionState)>()
+    public let didRangeBeacon = Event<(Beacon, BeaconRegion)>()
 
     private static var _trackedRegions: [BeaconRegion]? = nil
-    var trackedRegions: [BeaconRegion] {
+    public var trackedRegions: [BeaconRegion] {
         get {
             if Self._trackedRegions == nil {
                 Self._trackedRegions = userDefaults[.trackedBeaconRegions] ?? []
@@ -184,23 +184,23 @@ class BeaconDetector: NSObject {
 }
 
 extension BeaconDetector: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+    public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         guard let region = region as? CLBeaconRegion else { return }
         didDetermineState(state, for: BeaconRegion(clBeaconRegion: region))
     }
 
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         logError("monitoringDidFailFor: \(region!.identifier) \(error)")
     }
 
-    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+    public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         guard beacons.count > 0 else { return }
         for beacon in beacons {
             didRange(beacon: Beacon(clBeacon: beacon), in: BeaconRegion(clBeaconRegion: region))
         }
     }
 
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             syncFromTrackedRegions()
         }

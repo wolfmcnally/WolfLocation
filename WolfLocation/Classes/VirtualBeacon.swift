@@ -10,7 +10,7 @@ import CoreBluetooth
 import WolfCore
 
 public class VirtualBeacon: Invalidatable {
-    private let region: BeaconRegion
+    public let region: BeaconRegion
 
     private var stateChangeObserver: Event<CBManagerState>.Observer!
     private var peripheralManager: BluetoothPeripheralManager!

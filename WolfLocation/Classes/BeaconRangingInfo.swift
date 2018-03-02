@@ -8,12 +8,12 @@
 import CoreLocation
 import WolfCore
 
-class BeaconRangingInfo {
+public class BeaconRangingInfo {
     private typealias `Self` = BeaconRangingInfo
 
-    let region: BeaconRegion
+    public let region: BeaconRegion
 
-    var state: CLRegionState = .unknown {
+    public var state: CLRegionState = .unknown {
         didSet { didChange.notify(self) }
     }
 
@@ -22,7 +22,7 @@ class BeaconRangingInfo {
     private var lastRangingInfoDate: Date?
     private var staleTimerCanceler: Cancelable!
 
-    init(region: BeaconRegion) {
+    public init(region: BeaconRegion) {
         //    init(region: BeaconRegion, state: CLRegionState) {
         self.region = region
         //        self.state = state
@@ -47,10 +47,10 @@ class BeaconRangingInfo {
         staleTimerCanceler.cancel()
     }
 
-    static let maxInfosCount = 60
+    public static let maxInfosCount = 60
 
-    let didChange = Event<BeaconRangingInfo>()
-    private(set) var infos = [Beacon?]()
+    public let didChange = Event<BeaconRangingInfo>()
+    public private(set) var infos = [Beacon?]()
 
     private func enteredRegionsDidChange(_ region: BeaconRegion, state: CLRegionState) {
         guard self.region == region else { return }
@@ -76,14 +76,14 @@ class BeaconRangingInfo {
         infos = Array(infos.dropFirst(dropCount))
     }
 
-    var lastInfo: Beacon? {
+    public var lastInfo: Beacon? {
         guard let lastInfo = infos.last else {
             return nil
         }
         return lastInfo
     }
 
-    var lastInfoSortWeight: SortWeight {
+    private var lastInfoSortWeight: SortWeight {
         guard let lastInfo = lastInfo else {
             return .list([CLProximity.unknown.sortWeight, .double(veryFarAway)])
         }
@@ -95,7 +95,7 @@ class BeaconRangingInfo {
         return lastInfo.sortWeight
     }
 
-    var sortWeight: SortWeight {
+    public var sortWeight: SortWeight {
         return .list([lastInfoSortWeight, state.sortWeight])
     }
 }
