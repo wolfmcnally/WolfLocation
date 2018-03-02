@@ -1,0 +1,6 @@
+use_frameworks!
+target 'WolfLocation_Tests' do
+  pod 'WolfLocation', :path => '../'
+  
+  
+end
