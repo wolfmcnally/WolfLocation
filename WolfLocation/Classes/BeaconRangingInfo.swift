@@ -18,7 +18,7 @@ public class BeaconRangingInfo {
     }
 
     private var enteredRegionsDidChangeObserver: Event<(BeaconRegion, CLRegionState)>.Observer!
-    private var didRangeBeaconObserver: Event<(Beacon, BeaconRegion)>.Observer!
+    private var didRangeBeaconObserver: Event<(BeaconTelemetry, BeaconRegion)>.Observer!
     private var lastRangingInfoDate: Date?
     private var staleTimerCanceler: Cancelable!
 
@@ -50,14 +50,14 @@ public class BeaconRangingInfo {
     public static let maxInfosCount = 60
 
     public let didChange = Event<BeaconRangingInfo>()
-    public private(set) var infos = [Beacon?]()
+    public private(set) var infos = [BeaconTelemetry?]()
 
     private func enteredRegionsDidChange(_ region: BeaconRegion, state: CLRegionState) {
         guard self.region == region else { return }
         self.state = state
     }
 
-    private func didRangeBeacon(_ info: Beacon?, in region: BeaconRegion) {
+    private func didRangeBeacon(_ info: BeaconTelemetry?, in region: BeaconRegion) {
         guard self.region == region else { return }
         defer { didChange.notify(self) }
 
@@ -76,7 +76,7 @@ public class BeaconRangingInfo {
         infos = Array(infos.dropFirst(dropCount))
     }
 
-    public var lastInfo: Beacon? {
+    public var lastInfo: BeaconTelemetry? {
         guard let lastInfo = infos.last else {
             return nil
         }

@@ -20,7 +20,7 @@ public class BeaconDetector: NSObject {
 
     private let clLocationManager = CLLocationManager()
     public let enteredRegionsDidChange = Event<(BeaconRegion, CLRegionState)>()
-    public let didRangeBeacon = Event<(Beacon, BeaconRegion)>()
+    public let didRangeBeacon = Event<(BeaconTelemetry, BeaconRegion)>()
 
     private static var _trackedRegions: [BeaconRegion]? = nil
     public var trackedRegions: [BeaconRegion] {
@@ -158,7 +158,7 @@ public class BeaconDetector: NSObject {
         logInfo("❌❌ didStopRanging: \(region.identifier)")
     }
 
-    private func didRange(beacon: Beacon, in region: BeaconRegion) {
+    private func didRange(beacon: BeaconTelemetry, in region: BeaconRegion) {
         //        var message = "💜 \(region.identifier): \(beacon.proximity)"
         //        if beacon.proximity != .unknown {
         //            message += " ±\(beacon.accuracy %% 1) dB: \(beacon.rssi)"
@@ -196,7 +196,7 @@ extension BeaconDetector: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         guard beacons.count > 0 else { return }
         for beacon in beacons {
-            didRange(beacon: Beacon(clBeacon: beacon), in: BeaconRegion(clBeaconRegion: region))
+            didRange(beacon: BeaconTelemetry(clBeacon: beacon), in: BeaconRegion(clBeaconRegion: region))
         }
     }
 

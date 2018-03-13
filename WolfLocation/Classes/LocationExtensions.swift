@@ -35,3 +35,22 @@ extension CLProximity {
         }
     }
 }
+
+public struct LocationCoordinate2D: Codable {
+    public var latitude: CLLocationDegrees
+    public var longitude: CLLocationDegrees
+
+    public init(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
+    public init(clCoordinate: CLLocationCoordinate2D) {
+        self.latitude = clCoordinate.latitude
+        self.longitude = clCoordinate.longitude
+    }
+
+    public var clCoordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+}
