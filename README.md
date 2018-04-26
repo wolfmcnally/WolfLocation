@@ -5,10 +5,6 @@
 [![License](https://img.shields.io/cocoapods/l/WolfLocation.svg?style=flat)](http://cocoapods.org/pods/WolfLocation)
 [![Platform](https://img.shields.io/cocoapods/p/WolfLocation.svg?style=flat)](http://cocoapods.org/pods/WolfLocation)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ## Requirements
 
 ## Installation
