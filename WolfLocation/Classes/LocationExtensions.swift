@@ -6,7 +6,7 @@
 //
 
 import CoreLocation
-import WolfCore
+import WolfFoundation
 
 extension CLRegionState {
     public var sortWeight: SortWeight {
@@ -32,6 +32,8 @@ extension CLProximity {
             return .int(2)
         case .unknown:
             return .int(3)
+        @unknown default:
+            fatalError()
         }
     }
 }

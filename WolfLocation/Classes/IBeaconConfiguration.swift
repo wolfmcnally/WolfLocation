@@ -5,7 +5,7 @@
 //  Created by Wolf McNally on 3/9/18.
 //
 
-import WolfCore
+import Foundation
 
 public struct IBeaconConfiguration: Codable {
     public var uuid: UUID

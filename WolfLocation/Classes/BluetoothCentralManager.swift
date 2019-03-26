@@ -6,7 +6,8 @@
 //
 
 import CoreBluetooth
-import WolfCore
+import WolfFoundation
+import WolfConcurrency
 
 public class BluetoothCentralManager: NSObject, CBCentralManagerDelegate {
     private let queue: DispatchQueue?

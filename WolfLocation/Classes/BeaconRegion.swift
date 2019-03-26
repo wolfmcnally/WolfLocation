@@ -6,7 +6,7 @@
 //
 
 import CoreLocation
-import WolfCore
+import Foundation
 
 public struct BeaconRegion: Codable {
     public let type = "BeaconConfig"
@@ -31,13 +31,13 @@ public struct BeaconRegion: Codable {
         self.init(uuid: clBeaconRegion.proximityUUID, major: clBeaconRegion.major?.uint16Value, minor: clBeaconRegion.minor?.uint16Value, identifier: clBeaconRegion.identifier)
     }
 
-    public static func makeRandom() -> BeaconRegion {
-        let uuid = Lorem.uuid()
-        let major = Random.number(UInt16.min ... UInt16.max)
-        let minor = Random.number(UInt16.min ... UInt16.max)
-        let identifier = Lorem.firstName()
-        return BeaconRegion(uuid: uuid, major: major, minor: minor, identifier: identifier)
-    }
+//    public static func makeRandom() -> BeaconRegion {
+//        let uuid = UUID()
+//        let major = Random.number(UInt16.min ... UInt16.max)
+//        let minor = Random.number(UInt16.min ... UInt16.max)
+//        let identifier = Lorem.firstName()
+//        return BeaconRegion(uuid: uuid, major: major, minor: minor, identifier: identifier)
+//    }
 
     public func encodeToJSON() -> Data {
         let encoder = JSONEncoder()
@@ -68,11 +68,10 @@ extension BeaconRegion: Equatable {
 }
 
 extension BeaconRegion: Hashable {
-    public var hashValue: Int {
-        var h = uuid.hashValue
-        if let major = major { h += major.hashValue }
-        if let minor = minor { h += minor.hashValue }
-        return h
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+        hasher.combine(major)
+        hasher.combine(minor)
     }
 }
 
@@ -110,7 +109,7 @@ extension Sequence where Element == BeaconRegion {
 
 extension Collection where Element == BeaconRegion {
     public func indexOfSame(_ e: Element) -> Index? {
-        return index { BeaconRegion.isSame($0, e) }
+        return firstIndex { BeaconRegion.isSame($0, e) }
     }
 }
 

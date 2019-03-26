@@ -6,7 +6,8 @@
 //
 
 import CoreLocation
-import WolfCore
+import WolfConcurrency
+import WolfFoundation
 
 public class BeaconRangingInfo {
     private typealias `Self` = BeaconRangingInfo

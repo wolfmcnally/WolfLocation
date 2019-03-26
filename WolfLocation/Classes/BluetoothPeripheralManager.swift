@@ -7,7 +7,9 @@
 
 import CoreBluetooth
 import CoreLocation
-import WolfCore
+import WolfConcurrency
+import WolfLog
+import WolfFoundation
 
 public class BluetoothPeripheralManager: NSObject, CBPeripheralManagerDelegate {
     private let queue: DispatchQueue?
@@ -80,6 +82,8 @@ extension CBManagerState: CustomStringConvertible {
             return "unknown"
         case .unsupported:
             return "unsupported"
+        @unknown default:
+            fatalError()
         }
     }
 }
