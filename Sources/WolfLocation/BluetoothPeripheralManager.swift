@@ -7,9 +7,8 @@
 
 import CoreBluetooth
 import CoreLocation
-import WolfConcurrency
+import WolfCore
 import WolfLog
-import WolfFoundation
 
 public class BluetoothPeripheralManager: NSObject, CBPeripheralManagerDelegate {
     private let queue: DispatchQueue?

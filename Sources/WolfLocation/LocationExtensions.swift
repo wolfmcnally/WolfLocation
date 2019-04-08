@@ -6,7 +6,7 @@
 //
 
 import CoreLocation
-import WolfFoundation
+import WolfCore
 
 extension CLRegionState {
     public var sortWeight: SortWeight {

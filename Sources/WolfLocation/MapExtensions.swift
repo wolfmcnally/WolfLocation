@@ -6,7 +6,7 @@
 //
 
 import MapKit
-import WolfNumerics
+import WolfCore
 import WolfGeometry
 
 extension MKMapPoint {

@@ -9,8 +9,7 @@
 import Foundation
 import CoreLocation
 import WolfLog
-import WolfConcurrency
-import WolfFoundation
+import WolfCore
 
 extension LogGroup {
     public static let location = LogGroup("location")

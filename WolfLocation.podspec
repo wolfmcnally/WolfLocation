@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WolfLocation'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'Tools for working with CoreLocation, including iBeacons.'
 
 # This description is used to generate tags and improve search results.
@@ -29,13 +29,12 @@ Tools for working with CoreLocation, including iBeacons. Derived from WolfCore.
 
   s.swift_version = '5.0'
 
-  s.source_files = 'WolfLocation/Classes/**/*'
+  s.source_files = 'Sources/WolfLocation/**/*'
 
   s.ios.deployment_target = '12.0'
 
   s.dependency 'WolfLog'
   s.dependency 'WolfApp'
-  s.dependency 'WolfConcurrency'
-  s.dependency 'WolfFoundation'
+  s.dependency 'WolfCore'
   s.dependency 'WolfViews'
 end
