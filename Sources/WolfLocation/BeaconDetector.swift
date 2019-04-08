@@ -7,9 +7,7 @@
 
 import CoreBluetooth
 import CoreLocation
-import WolfApp
-import WolfCore
-import WolfLog
+import WolfKit
 
 public let beaconDetector = BeaconDetector()
 

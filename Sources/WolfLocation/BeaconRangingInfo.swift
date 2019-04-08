@@ -6,7 +6,7 @@
 //
 
 import CoreLocation
-import WolfCore
+import WolfKit
 
 public class BeaconRangingInfo {
     private typealias `Self` = BeaconRangingInfo

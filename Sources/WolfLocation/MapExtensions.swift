@@ -6,8 +6,7 @@
 //
 
 import MapKit
-import WolfCore
-import WolfGeometry
+import WolfKit
 
 extension MKMapPoint {
     public func convert(from mapRect: MKMapRect, to bounds: CGRect) -> CGPoint {

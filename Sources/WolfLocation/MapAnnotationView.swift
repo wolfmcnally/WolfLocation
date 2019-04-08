@@ -6,7 +6,7 @@
 //
 
 import MapKit
-import WolfViews
+import WolfKit
 
 open class MapAnnotationView: MKAnnotationView {
     public override init(annotation: MKAnnotation?, reuseIdentifier: String?) {

@@ -8,8 +8,7 @@
 
 import CoreLocation
 import Foundation
-import WolfLog
-import WolfApp
+import WolfKit
 
 #if canImport(UIKit)
 import UIKit

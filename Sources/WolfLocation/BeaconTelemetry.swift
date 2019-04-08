@@ -6,7 +6,7 @@
 //
 
 import CoreLocation
-import WolfCore
+import WolfKit
 
 public struct BeaconTelemetry {
     public var uuid: UUID

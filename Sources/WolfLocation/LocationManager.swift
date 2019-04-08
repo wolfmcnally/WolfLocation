@@ -8,8 +8,7 @@
 
 import Foundation
 import CoreLocation
-import WolfLog
-import WolfCore
+import WolfKit
 
 extension LogGroup {
     public static let location = LogGroup("location")

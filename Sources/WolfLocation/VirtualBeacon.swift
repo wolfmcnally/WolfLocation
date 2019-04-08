@@ -7,7 +7,7 @@
 
 import CoreLocation
 import CoreBluetooth
-import WolfCore
+import WolfKit
 
 public class VirtualBeacon: Invalidatable {
     public let region: BeaconRegion
