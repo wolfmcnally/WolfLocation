@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WolfLocation'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'Tools for working with CoreLocation, including iBeacons.'
 
 # This description is used to generate tags and improve search results.

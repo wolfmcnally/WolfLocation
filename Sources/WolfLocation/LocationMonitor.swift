@@ -72,6 +72,7 @@ public class LocationMonitor {
                 break
             case .authorizedAlways, .authorizedWhenInUse:
                 self.locationManager.startUpdatingLocation()
+                self.locationManager.startMonitoringSignificantLocationChanges()
             case .denied, .restricted:
                 break
             @unknown default:
