@@ -19,10 +19,10 @@ public class LocationMonitor {
     public private(set) var recentLocations = [CLLocation]()
     private var isStarted: Bool = false
 
-    public var onLocationUpdated: ((LocationMonitor) -> Void)?
+    public let locationUpdated = Event<LocationMonitor>()
 
     public var location: CLLocation? {
-        return locationManager.location
+        didSet { locationUpdated.notify(self) }
     }
 
     public init(desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyKilometer, distanceFilter: CLLocationDistance = kCLDistanceFilterNone) {
@@ -59,6 +59,8 @@ public class LocationMonitor {
     public func start(from viewController: UIViewController) {
         guard !isStarted else { return }
 
+        logger?.setGroup(.location)
+
         isStarted = true
 
         guard DeviceAccess.checkLocationWhenInUseAuthorized(from: viewController) else {
@@ -67,6 +69,7 @@ public class LocationMonitor {
         }
 
         locationManager.didChangeAuthorizationStatus = { [unowned self] status in
+            logTrace("LocationMonitor.didChangeAuthorizationStatus: \(status).")
             switch status {
             case .notDetermined:
                 break
@@ -80,10 +83,13 @@ public class LocationMonitor {
             }
         }
 
+        locationManager.didFail = { [unowned self] status in
+            self.location = nil
+        }
+
         locationManager.didUpdateLocations = { [unowned self] locations in
             self.recentLocations = locations
-            self.onLocationUpdated?(self)
-            //logTrace(locations)
+            self.location = self.locationManager.location
         }
 
         locationManager.requestWhenInUseAuthorization()
