@@ -59,8 +59,6 @@ public class LocationMonitor {
     public func start(from viewController: UIViewController) {
         guard !isStarted else { return }
 
-        logger?.setGroup(.location)
-
         isStarted = true
 
         guard DeviceAccess.checkLocationWhenInUseAuthorized(from: viewController) else {
@@ -69,7 +67,6 @@ public class LocationMonitor {
         }
 
         locationManager.didChangeAuthorizationStatus = { [unowned self] status in
-            logTrace("LocationMonitor.didChangeAuthorizationStatus: \(status).")
             switch status {
             case .notDetermined:
                 break
