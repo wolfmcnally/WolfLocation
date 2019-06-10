@@ -27,7 +27,7 @@ Tools for working with CoreLocation, including iBeacons. Derived from WolfCore.
   s.source           = { :git => 'https://github.com/wolfmcnally/WolfLocation.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/wolfmcnally'
 
-  s.swift_version = '5.0'
+  s.swift_version = '5.1'
 
   s.source_files = 'Sources/WolfLocation/**/*'
 
