@@ -8,6 +8,7 @@
 import CoreLocation
 import WolfKit
 
+#if os(iOS)
 extension CLRegionState {
     public var sortWeight: SortWeight {
         switch self {
@@ -37,6 +38,7 @@ extension CLProximity {
         }
     }
 }
+#endif
 
 public struct LocationCoordinate2D: Codable {
     public var latitude: CLLocationDegrees
