@@ -128,6 +128,7 @@ extension LocationManager: CLLocationManagerDelegate {
     return shouldDisplayHeadingCalibration?() ?? true
     }
 
+    #if !targetEnvironment(macCatalyst)
     public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
     logTrace("didRangeBeacons", group: .location)
     didRangeBeacons?(beacons, region)
@@ -137,6 +138,7 @@ extension LocationManager: CLLocationManagerDelegate {
     logTrace("rangingBeaconsFailedInRegion", group: .location)
     rangingBeaconsFailedInRegion?(region, error)
     }
+    #endif
 
     public func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
     logTrace("didVisit", group: .location)
